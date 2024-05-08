@@ -1,18 +1,8 @@
-ERROR_WRONG_INPUT_LENGTH_TEXT = "Wrong input string length"
-ERROR_WRONG_INPUT_TYPE = "Wrong input type"
-
-
 # Time Complexity O(n)
 # Space Complexity O(n)
 # auxiliary space O(1)
 def identify_baby_boss_habit(input_string: str) -> str:
-    if not isinstance(input_string, str):
-        raise Exception(ERROR_WRONG_INPUT_TYPE)
-
     n = len(input_string)
-    if n < 1 or n > 1000000:
-        raise Exception(ERROR_WRONG_INPUT_LENGTH_TEXT)
-
     count_S = 0
     i = 0
     while i < n:
@@ -31,7 +21,8 @@ def identify_baby_boss_habit(input_string: str) -> str:
 
 
 def main():
-    print(identify_baby_boss_habit("SRSSRRR"))
+    input_string = input()
+    print(identify_baby_boss_habit(input_string))
 
 
 if __name__ == "__main__":
