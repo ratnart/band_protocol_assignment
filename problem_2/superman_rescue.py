@@ -1,6 +1,5 @@
 # Time Complexity O(n)
 # Space Complexity O(n)
-# auxiliary space O(1)
 def get_maximum_number_of_chicken_protected_by_superman(
     n: int, k: int, pos_chicken_list: list[int]
 ) -> int:

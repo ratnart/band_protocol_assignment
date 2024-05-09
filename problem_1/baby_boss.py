@@ -1,6 +1,5 @@
 # Time Complexity O(n)
 # Space Complexity O(n)
-# auxiliary space O(1)
 def identify_baby_boss_habit(input_string: str) -> str:
     n = len(input_string)
     count_S = 0
