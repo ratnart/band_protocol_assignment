@@ -1,6 +1,6 @@
 # band_protocol_assignment
 I have put the explanations of each answer in the folder corresponding to that question.
-For problem_1 and problem_2, please install python 3.12.0(my version) first.
+For problem_1 and problem_2, please install python 3.12.0 first.
 # Problem 1
 To run the script :
 1. clone the repo
