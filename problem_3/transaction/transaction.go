@@ -16,8 +16,43 @@ type TransactionPipelineInput struct{
 	Timestamp uint64 `json:"timestamp"`
 }
 
+type TransactionStatus uint8
+const(
+	CONFIRMED TransactionStatus=iota+1
+	FAILED
+	PENDING
+	DNE
+)
+func (ts TransactionStatus) String() string {
+	switch ts {
+		case CONFIRMED:
+			return "CONFIRMED"
+		case FAILED:
+			return "FAILED"
+		case PENDING:
+			return "PENDING"
+		case DNE:
+			return "DNE"
+		default:
+			return "Unknown status"
+	}
+}
+var statusMap=map[string]TransactionStatus{
+	"CONFIRMED":CONFIRMED,
+	"FAILED":FAILED,
+	"PENDING":PENDING,
+	"DNE":DNE,
+}
+func convertStatus(status string) TransactionStatus{
+	if value,ok:=statusMap[status];ok{
+		return value
+	}
+
+	return 0
+}
+
 type TransactionPipelineOutput struct{
-	TxStatus string `json:"tx_status"`
+	TxStatus TransactionStatus
 }
 
 type BroadcastTransactionRequest struct {
@@ -37,6 +72,8 @@ type MonitorTransactionStatusRequest struct {
 type MonitorTransactionStatusResponse struct {
 	TxStatus string `json:"tx_status"`
 }
+
+
 
 func (t Transaction) BroadcastTransaction(request BroadcastTransactionRequest) (BroadcastTransactionResponse,error) {
 	jsonData,err:=json.Marshal(request)
@@ -96,7 +133,7 @@ func (t Transaction) InvokeTransactionPipeline(pipelineInput TransactionPipeline
 	}
 
 	monitorRequest:=MonitorTransactionStatusRequest(resBroadcast)
-	resTransaction,err:=t.MonitorTransactionStatus(MonitorTransactionStatusRequest(monitorRequest))
-
-	return TransactionPipelineOutput(resTransaction),err
+	resTransactionStatus,err:=t.MonitorTransactionStatus(MonitorTransactionStatusRequest(monitorRequest))
+	
+	return TransactionPipelineOutput{convertStatus(resTransactionStatus.TxStatus)},err
 }

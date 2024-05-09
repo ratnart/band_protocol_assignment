@@ -12,7 +12,7 @@ type input struct{
 	timestamp uint64
 }
 
-func display(transaction input,status string){
+func display(transaction input,status transaction.TransactionStatus){
 	fmt.Printf("------\nsymbol:%s\nprice:%d\ntimestamp:%d\nstatus:%s\n------\n",transaction.symbol,transaction.price,transaction.timestamp,status)
 }
 
@@ -51,11 +51,23 @@ func main() {
 				fmt.Println(err)
 			}else{
 				display(input,response.TxStatus)
+				switch response.TxStatus{
+					case transaction.CONFIRMED:
+						//Notify the user that transaction is completed
+					case transaction.FAILED:
+						//Notify the user that transaction has failed to process
+					case transaction.PENDING:
+						//Notify the user that transaction is currently being processed
+					case transaction.DNE:
+						//Notify the user that transaction does not exist
+					default:
+						fmt.Println("Wrong Transaction Status")
+				}
 			}
 			wg.Done()
 		}()
 		wg.Add(1)
 	}
 	wg.Wait()
-	fmt.Println("Process Pipeline Succesfully")
+	fmt.Println("Process Succesfully")
 }
