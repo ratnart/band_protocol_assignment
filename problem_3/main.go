@@ -12,8 +12,8 @@ type input struct{
 	timestamp uint64
 }
 
-func display(text string){
-	fmt.Printf("status=%s\n",text)
+func display(transaction input,status string){
+	fmt.Printf("------\nsymbol:%s\nprice:%d\ntimestamp:%d\nstatus:%s\n------\n",transaction.symbol,transaction.price,transaction.timestamp,status)
 }
 
 func main() {
@@ -50,7 +50,7 @@ func main() {
 			if err!=nil{
 				fmt.Println(err)
 			}else{
-				display(response.TxStatus)
+				display(input,response.TxStatus)
 			}
 			wg.Done()
 		}()
