@@ -45,25 +45,22 @@ class TestBabyBoss(unittest.TestCase):
         )
 
     def test_identify_baby_boss_habit_edge_case_max_length_with_S(self):
-        input_string = "S" * 1000000
         self.assertEqual(
-            identify_baby_boss_habit(input_string),
+            identify_baby_boss_habit("S" * 1000000),
             self.BAD_BOY_TEXT,
             self.ASSERT_FAIL_MISIDENTIFY_TEXT,
         )
 
     def test_identify_baby_boss_habit_edge_case_max_length_with_R(self):
-        input_string = "R" * 1000000
         self.assertEqual(
-            identify_baby_boss_habit(input_string),
+            identify_baby_boss_habit("R" * 1000000),
             self.BAD_BOY_TEXT,
             self.ASSERT_FAIL_MISIDENTIFY_TEXT,
         )
 
     def test_identify_baby_boss_habit_edge_case_max_length_with_SR_order(self):
-        input_string = "SR" * 500000
         self.assertEqual(
-            identify_baby_boss_habit(input_string),
+            identify_baby_boss_habit("SR" * 500000),
             self.GOOD_BOY_TEXT,
             self.ASSERT_FAIL_MISIDENTIFY_TEXT,
         )
